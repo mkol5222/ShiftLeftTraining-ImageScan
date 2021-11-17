@@ -46,4 +46,4 @@ jobs:
           CHKP_CLOUDGUARD_ID: ${{ secrets.CHKP_CLOUDGUARD_ID }}
           CHKP_CLOUDGUARD_SECRET: ${{ secrets.CHKP_CLOUDGUARD_SECRET }}
           CHKP_CLOUDGUARD_ENV: ${{ secrets.CHKP_CLOUDGUARD_ENV }}
-        run: docker run --rm -e CHKP_CLOUDGUARD_ID -e CHKP_CLOUDGUARD_SECRET -v $PWD:$PWD -w $PWD checkpoint/shiftleft shiftleft code-scan -p $PWD -r -2003 -e $CHKP_CLOUDGUARD_ENV
+        run: docker run --rm -e CHKP_CLOUDGUARD_ID -e CHKP_CLOUDGUARD_SECRET -v $PWD:$PWD -w $PWD checkpoint/shiftleft shiftleft code-scan -s . -r -2003 -e $CHKP_CLOUDGUARD_ENV
