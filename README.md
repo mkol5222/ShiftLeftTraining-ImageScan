@@ -1,4 +1,5 @@
 # Example Python Script used for the ShiftLeft Training for Image and Code Scan
+
 # Generic Data Center CLI Python
 
 This simple tool will update a JSON file with ip addresses (v4 and v6) used with the Generic Data Center Objects as described in SK167210 for Check Point release R81 or R81.10.
