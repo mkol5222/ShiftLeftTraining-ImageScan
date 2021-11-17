@@ -1,4 +1,6 @@
-# Example Python Script used for the ShiftLeft Training for Image and Code Scan
+# ShiftLeft Training for Image and Code Scan 
+
+The included Python Script is just an example script that can be scanned for risks.  This repo is using GitHub Actions to trigger when commits to the repo are made.
 
 # Generic Data Center CLI Python
 
