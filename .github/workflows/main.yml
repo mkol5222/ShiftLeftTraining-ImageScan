@@ -31,10 +31,11 @@ jobs:
            CHKP_CLOUDGUARD_ID: ${{ secrets.CHKP_CLOUDGUARD_ID }}
            CHKP_CLOUDGUARD_SECRET: ${{ secrets.CHKP_CLOUDGUARD_SECRET }}
            CHKP_CLOUDGUARD_ENV: ${{ secrets.CHKP_CLOUDGUARD_ENV }}
+           SHIFTLEFT_REGION: eu1
         run: |
            docker build -t shiftleftexample/gdc-python .
            docker save -o shiftleftexample.tar shiftleftexample/gdc-python
-           docker run --rm -e CHKP_CLOUDGUARD_ID -e CHKP_CLOUDGUARD_SECRET -v $PWD:$PWD -w $PWD checkpoint/shiftleft shiftleft image-scan -i shiftleftexample.tar -r -2002 -e $CHKP_CLOUDGUARD_ENV
+           docker run --rm -e SHIFTLEFT_REGION -e CHKP_CLOUDGUARD_ID -e CHKP_CLOUDGUARD_SECRET -v $PWD:$PWD -w $PWD checkpoint/shiftleft shiftleft image-scan -i shiftleftexample.tar -r -2002 -e $CHKP_CLOUDGUARD_ENV
   codescan:
     runs-on: ubuntu-latest
     steps:
@@ -46,4 +47,5 @@ jobs:
           CHKP_CLOUDGUARD_ID: ${{ secrets.CHKP_CLOUDGUARD_ID }}
           CHKP_CLOUDGUARD_SECRET: ${{ secrets.CHKP_CLOUDGUARD_SECRET }}
           CHKP_CLOUDGUARD_ENV: ${{ secrets.CHKP_CLOUDGUARD_ENV }}
-        run: docker run --rm -e CHKP_CLOUDGUARD_ID -e CHKP_CLOUDGUARD_SECRET -v $PWD:$PWD -w $PWD checkpoint/shiftleft shiftleft code-scan -s . -r -2003 -e $CHKP_CLOUDGUARD_ENV
+          SHIFTLEFT_REGION: eu1
+        run: docker run --rm -e SHIFTLEFT_REGION -e CHKP_CLOUDGUARD_ID -e CHKP_CLOUDGUARD_SECRET -v $PWD:$PWD -w $PWD checkpoint/shiftleft shiftleft code-scan -s . -r -2003 -e $CHKP_CLOUDGUARD_ENV
