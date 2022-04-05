@@ -49,3 +49,25 @@ jobs:
           CHKP_CLOUDGUARD_ENV: ${{ secrets.CHKP_CLOUDGUARD_ENV }}
           SHIFTLEFT_REGION: eu1
         run: docker run --rm -e SHIFTLEFT_REGION -e CHKP_CLOUDGUARD_ID -e CHKP_CLOUDGUARD_SECRET -v $PWD:$PWD -w $PWD checkpoint/shiftleft shiftleft code-scan -s . -r -2003 -e $CHKP_CLOUDGUARD_ENV
+
+  onemore:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository 
+      - uses: actions/checkout@v2
+        with:
+          repository: DDuarte/springshell-rce-poc
+      # Build the docker image and scan with ShiftLeft
+      - name: Build the Docker image and scan with ShiftLeft
+        env: 
+           CHKP_CLOUDGUARD_ID: ${{ secrets.CHKP_CLOUDGUARD_ID }}
+           CHKP_CLOUDGUARD_SECRET: ${{ secrets.CHKP_CLOUDGUARD_SECRET }}
+           CHKP_CLOUDGUARD_ENV: ${{ secrets.CHKP_CLOUDGUARD_ENV }}
+           SHIFTLEFT_REGION: eu1
+        run: |
+           docker build -t rce .
+           docker save -o rce.tar rce
+           docker run --rm -e SHIFTLEFT_REGION -e CHKP_CLOUDGUARD_ID -e CHKP_CLOUDGUARD_SECRET -v $PWD:$PWD -w $PWD checkpoint/shiftleft shiftleft image-scan -i rce.tar -r -2002 -e $CHKP_CLOUDGUARD_ENV
